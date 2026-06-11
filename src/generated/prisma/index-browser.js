@@ -123,9 +123,45 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.StudentsScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  roll: 'roll',
   email: 'email',
+  departmentId: 'departmentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DepartmentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createAt: 'createAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TeacherScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  departmentId: 'departmentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CourseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  credit: 'credit',
+  teacherId: 'teacherId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EnrollmentScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  couserId: 'couserId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  enrolledAt: 'enrolledAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -140,7 +176,11 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  Students: 'Students'
+  Students: 'Students',
+  department: 'department',
+  teacher: 'teacher',
+  course: 'course',
+  enrollment: 'enrollment'
 };
 
 /**

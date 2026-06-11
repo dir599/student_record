@@ -1,13 +1,14 @@
-import express, { json } from 'express'
+import express from 'express'
 import dotenv from 'dotenv'
-import studentRouter from './routes/student_routes.js'
+import routes from './routes/routes.js'
 dotenv.config()
 
 
 
 let app = express()
 app.use(express.json())
-app.use("/student", studentRouter)
+app.use("/", routes)
+
 let PORT = process.env.PORT || 3000
 
 app.get("/", (req,res)=>{

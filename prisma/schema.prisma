@@ -4,8 +4,8 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider     = "prisma-client-js"
+  output       = "../src/generated/prisma"
   moduleFromat = "esm"
 }
 
@@ -14,9 +14,56 @@ datasource db {
 }
 
 model Students {
+  id           Int        @id @default(autoincrement())
+  name         String
+  roll         Int       @map("roll_no")
+  email        String     @unique
+  departmentId Int        @map("department_Id")      
+  department   department @relation(fields: [departmentId], references: [id])
+  enrollment enrollment[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model department {
+  id        Int        @id @default(autoincrement())
+  name      String
+  students  Students[]
+  teachers  teacher[]
+  createAt  DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model teacher {
+  id           Int        @id @default(autoincrement())
+  name         String
+  email        String     @unique
+  courses      course[]
+  departmentId Int
+  department   department @relation(fields: [departmentId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model course {
   id        Int      @id @default(autoincrement())
   name      String
-  email     String   @unique
+  credit    Float
+  teacherId Int
+  teacher teacher @relation(fields: [teacherId], references: [id])
+  enrollment enrollment[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+}
+
+model enrollment {
+  id         Int      @id @default(autoincrement())
+  studentId Int
+  student Students @relation(fields: [studentId], references: [id])
+  couserId Int
+  course course @relation(fields: [couserId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  enrolledAt DateTime @default(now())
 }

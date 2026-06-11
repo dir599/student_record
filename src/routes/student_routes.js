@@ -1,6 +1,8 @@
-import { CreateStudednt, DeleteStudent, FindAllStudents, FindStudentById, UpdateStudent } from '../handlers/handler.js'
-import router from './routes.js'
+import { Router } from 'express'
+import { CreateStudednt, DeleteStudent, FindAllStudents, FindStudentById, UpdateStudent } from '../handlers/student_handler.js'
 
+
+const router = Router()
 router.get(
     "/", FindAllStudents
 )
