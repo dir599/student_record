@@ -4,7 +4,7 @@ let FindAllTeachers = async (req, res) => {
   try {
     let allTeachers = await prisma.teacher.findMany();
     res.json({
-      message: "all studnets found",
+      message: "all teacher found",
       data: allTeachers,
     });
   } catch (e) {
@@ -24,7 +24,7 @@ let FindTeacherById = async (req, res) => {
       });
       return;
     }
-    // check if id is number not and must return status releated to it
+    // check if id is number not and must return status related to it
     if (isNaN(id)) {
       res.status(404).json({
         error: "id must be number",
@@ -49,29 +49,32 @@ let FindTeacherById = async (req, res) => {
 let createdTeacher = async (req, res) => {
   try {
     let data = req.body;
-    let { email, name, roll_no, departmentId } = data;
-    // let validateMsg = ValidateEmptyField("email", email);
-    // if (validateMsg != null) {
-    //   res.status(400).json({
-    //     error: validateMsg,
-    //   });
-    //   return;
-    // }
-    let createdTeacher = await prisma.teacher.create({
+    let { name, email,  departmentId } = data;
+    // ✅ Check if teacher exists
+    let departmentExists = await prisma.department.findUnique({
+      where: { id: parseInt(departmentId) }
+    });
+    if(!departmentExists){
+      res.status(404).json({
+        message: "department doesn't exit"
+      })
+    }
+   
+    let createTeacher = await prisma.teacher.create({
       data: {
         name,
         email,
-        roll_no,
+        
         department: {
           connect: {
-            id: Number(departmentId),
+            id: parseInt(departmentId),
           },
         },
       },
     });
     res.status(201).json({
       message: "Teacher created successfully",
-      data: createdTeacher,
+      data: createTeacher,
     });
   } catch (e) {
     console.log(e);
@@ -84,12 +87,26 @@ let createdTeacher = async (req, res) => {
 
 let UpdateTeacher = async (req, res) => {
   try {
-    const TeacherId = req.params.id;
+    const teacherId = req.params.id;
+    const { name , email } = req.body;
+    console.log("body", req.body)
 
-    const { name, email } = req.body;
+
+    //  checking or looking for teacher id
+    let teacherExists = await prisma.teacher.findUnique({
+      where: {id: parseInt(teacherId)}
+    })
+    if(!teacherExists){
+      return res.status(404).json({
+        message: "Teacher is not exists"
+      })
+    }
+
+
+
     let updatedData = await prisma.teacher.update({
       where: {
-        id: Number(TeacherId),
+        id: Number(teacherId)
       },
       data: {
         name: name,
@@ -102,6 +119,7 @@ let UpdateTeacher = async (req, res) => {
       data: updatedData,
     });
   } catch (e) {
+    console.log(e)
     res.status(500).json({
       message: "cannot find id",
     });
@@ -110,13 +128,14 @@ let UpdateTeacher = async (req, res) => {
 let DeleteTeacher = async (req, res) => {
   try {
     let id = req.params.id;
+
     let deletedTeacher = await prisma.teacher.delete({
       where: {
         id: Number(id),
       },
     });
     res.status(200).json({
-      message: `Teacher with id ${id} delted sucedfully`,
+      message: `Teacher with id ${id} deleted successfully`,
       data: deletedTeacher,
     });
   } catch (e) {

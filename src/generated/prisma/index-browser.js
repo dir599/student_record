@@ -133,7 +133,7 @@ exports.Prisma.StudentsScalarFieldEnum = {
 exports.Prisma.DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  createAt: 'createAt',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
@@ -158,10 +158,21 @@ exports.Prisma.CourseScalarFieldEnum = {
 exports.Prisma.EnrollmentScalarFieldEnum = {
   id: 'id',
   studentId: 'studentId',
-  couserId: 'couserId',
+  courseId: 'courseId',
   createdAt: 'createdAt',
+  status: 'status',
   updatedAt: 'updatedAt',
   enrolledAt: 'enrolledAt'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  username: 'username',
+  email: 'email',
+  password: 'password',
+  role: 'role'
 };
 
 exports.Prisma.SortOrder = {
@@ -180,7 +191,8 @@ exports.Prisma.ModelName = {
   department: 'department',
   teacher: 'teacher',
   course: 'course',
-  enrollment: 'enrollment'
+  enrollment: 'enrollment',
+  User: 'User'
 };
 
 /**

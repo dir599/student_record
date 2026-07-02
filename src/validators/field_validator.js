@@ -18,7 +18,7 @@ export let ValidateEmptyFieldTypes = (fieldName, value) => {
     } else if (fieldName == "name") {
       errorMsg = ValidateEmptyField(fieldName, value);
       if (errorMsg != null) return errorMsg;
-      // check for lenght name must be greater than 3
+      // check for length name must be greater than 3
       if (value.length < 3) {
         errorMsg = ValidateEmptyField(fieldName, value);
         if (errorMsg != null) return errorMsg;

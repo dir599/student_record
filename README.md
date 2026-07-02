@@ -63,5 +63,15 @@ DATABASE_URL = "postgresql://user:password@host:port/databaseName?schema=public"
 
 ### change prisma.cofig.ts into .js
 
-and download the npm i @prisma/adapter-pg
-npm i @prisma/client
+-and download the npm i @prisma/adapter-pg
+-npm i @prisma/client
+
+### after updating the prisma model do this
+-npx prisma migrate dev --name add_email_to_user
+-npx prisma generate
+
+### to update
+-npm prisma db push
+-npx prisma code generate
+
+--swagger yaml
