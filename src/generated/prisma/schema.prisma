@@ -6,7 +6,7 @@
 generator client {
   provider     = "prisma-client-js"
   output       = "../src/generated/prisma"
-  moduleFromat = "esm"
+  moduleFormat = "esm"
 }
 
 datasource db {
@@ -16,9 +16,9 @@ datasource db {
 model Students {
   id           Int          @id @default(autoincrement())
   name         String
-  roll         Int
+  roll         Int          @map("roll_no")
   email        String       @unique
-  departmentId Int
+  departmentId Int          @map("department_Id")
   department   department   @relation(fields: [departmentId], references: [id])
   enrollment   enrollment[]
   createdAt    DateTime     @default(now())
@@ -30,7 +30,7 @@ model department {
   name      String
   students  Students[]
   teachers  teacher[]
-  createAt  DateTime   @default(now())
+  createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
 
@@ -60,9 +60,22 @@ model enrollment {
   id         Int      @id @default(autoincrement())
   studentId  Int
   student    Students @relation(fields: [studentId], references: [id])
-  couserId   Int
-  course     course   @relation(fields: [couserId], references: [id])
+  courseId   Int
+  course     course   @relation(fields: [courseId], references: [id])
   createdAt  DateTime @default(now())
+  status     String   @default("active")
   updatedAt  DateTime @updatedAt
   enrolledAt DateTime @default(now())
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  username  String   @unique
+  email     String   @unique
+  password  String
+  role      String   @default("user")
+
+  @@map("users")
 }

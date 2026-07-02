@@ -9,7 +9,7 @@ let FindAllDepartments = async (req, res) => {
       },
     });
     res.json({
-      message: "all studnets found",
+      message: "all students found",
       data: allDepartments,
     });
   } catch (e) {
@@ -19,7 +19,7 @@ let FindAllDepartments = async (req, res) => {
   }
 };
 
-let FinddepartmentById = async (req, res) => {
+let FindDepartmentById = async (req, res) => {
   try {
     let id = req.params.id;
     // empty validation
@@ -29,20 +29,20 @@ let FinddepartmentById = async (req, res) => {
       });
       return;
     }
-    // check if id is number not and must return status releated to it
+    // check if id is number not and must return status related to it
     if (isNaN(id)) {
       res.status(404).json({
         error: "id must be number",
       });
     }
-    let matchdepartment = await prisma.department.findUnique({
+    let matchDepartment = await prisma.department.findUnique({
       where: {
         id: Number(req.params.id),
       },
     });
     res.status(200).json({
       message: "All department found",
-      data: matchdepartment,
+      data: matchDepartment,
     });
   } catch (e) {
     res.status(500).json({
@@ -62,12 +62,12 @@ let CreateDepartment = async (req, res) => {
     //   })
     //   return
     // }
-    let createddepartment = await prisma.department.create({
+    let createdDepartment = await prisma.department.create({
       data: data,
     });
     res.status(201).json({
       message: "department created successfully",
-      data: createddepartment,
+      data: createdDepartment,
     });
   } catch (e) {
     res.status(500).json({
@@ -76,11 +76,11 @@ let CreateDepartment = async (req, res) => {
   }
 };
 
-let Updatedepartment = async (req, res) => {
+let UpdateDepartment = async (req, res) => {
   try {
     const departmentId = req.params.id;
 
-    const { name, email } = req.body;
+    const { name } = req.body;
     let updatedData = await prisma.department.update({
       where: {
         id: Number(departmentId),
@@ -100,17 +100,17 @@ let Updatedepartment = async (req, res) => {
     });
   }
 };
-let Deletedepartment = async (req, res) => {
+let DeleteDepartment = async (req, res) => {
   try {
     let id = req.params.id;
-    let deleteddepartment = await prisma.department.delete({
+    let deletedDepartment = await prisma.department.delete({
       where: {
         id: Number(id),
       },
     });
     res.status(200).json({
-      message: `department with id ${id} deleted sucedfully`,
-      data: deleteddepartment,
+      message: `department with id ${id} deleted successfully`,
+      data: deletedDepartment,
     });
   } catch (e) {
     res.status(500).json({
@@ -121,8 +121,8 @@ let Deletedepartment = async (req, res) => {
 
 export {
   FindAllDepartments,
-  FinddepartmentById,
+  FindDepartmentById,
   CreateDepartment,
-  Updatedepartment,
-  Deletedepartment,
+  UpdateDepartment,
+  DeleteDepartment,
 };

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {  FindAllDepartments, FinddepartmentById, CreateDepartment, Updatedepartment, Deletedepartment } from '../handlers/department_handler.js'
+import {  FindAllDepartments, CreateDepartment, FindDepartmentById, UpdateDepartment, DeleteDepartment } from '../handlers/department_handler.js'
 
 
 const router = Router()
@@ -10,7 +10,7 @@ router.get(
 
 // for read
 router.get(
-    "/:id", FinddepartmentById
+    "/:id", FindDepartmentById
 )
 
 // for write
@@ -21,13 +21,13 @@ router.post(
 
 // for replace
 router.put(
-    "/:id", Updatedepartment
+    "/:id", UpdateDepartment
 )
 
 
 // to delete
 router.delete(
-    "/:id", Deletedepartment
+    "/:id", DeleteDepartment
 )
 
 export default router

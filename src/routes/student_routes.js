@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { CreateStudednt, DeleteStudent, FindAllStudents, FindStudentById, UpdateStudent } from '../handlers/student_handler.js'
+import { CreateStudent, CreateStudentWithDepartment, DeleteStudent, FindAllStudents, FindStudentById, getAllStudentsWithSelect, sortStudents, UpdateStudent } from '../handlers/student_handler.js'
 
 
 const router = Router()
@@ -9,13 +9,20 @@ router.get(
 
 // for read
 router.get(
+    "/get-student-with-select", getAllStudentsWithSelect
+)
+router.get(
+    "/get-student-with-asc", sortStudents
+)
+router.get(
     "/:id", FindStudentById
 )
 
 // for write
 router.post(
-    "/", CreateStudednt
+    "/", CreateStudent
 )
+router.post("/with-depart", CreateStudentWithDepartment)
 
 
 // for replace
